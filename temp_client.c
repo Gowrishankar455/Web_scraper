@@ -17,27 +17,26 @@ int main(int argc,char* argv[])
         if(argc<2){
 		printf("Invalid input");
 	}
-        printf("argc:%d,domain: %s,path:%s\n",argc,domain,path);
-	struct hostent *he;
-	he = gethostbyname(domain);
+        struct hostent *he;
+	he = gethostbyname(domain); //changing the host domain to ip address
 	if (he == NULL){
        herror("gethostbyname");
        exit(1);
         }
 
-        int client_socket=socket(AF_INET,SOCK_STREAM,0);
+        int client_socket=socket(AF_INET,SOCK_STREAM,0); //creating a socket
         if(client_socket==-1){
 		perror("Socket");
                 exit(1);
 	}
         struct sockaddr_in remote_address;
-	remote_address.sin_family=AF_INET;
-	remote_address.sin_port=htons(80);
+	remote_address.sin_family=AF_INET;  //Ipv4
+	remote_address.sin_port=htons(80);  //TCP port
 	remote_address.sin_addr = *((struct in_addr *)he->h_addr);
         bzero(&(remote_address.sin_zero),8); 
 
 
-	if (connect(client_socket, (struct sockaddr *)&remote_address,sizeof(struct sockaddr)) == -1){
+	if (connect(client_socket, (struct sockaddr *)&remote_address,sizeof(struct sockaddr)) == -1){ //Establishing a TCP connection
        perror("Connect");
        exit(1);
          }
@@ -58,6 +57,8 @@ int main(int argc,char* argv[])
    
    int bytes=0;
    char *ptr=response+1;
+ 
+ //skip the status and other information
     while(bytes_received = recv(client_socket, ptr, 1, 0)){
         if(bytes_received==-1){
             perror("Parse Header");
@@ -71,6 +72,7 @@ int main(int argc,char* argv[])
         ptr++;
     }
 
+ //Saving html source code
 
    while( bytes_received = recv(client_socket, response, sizeof(response), 0)){
     if( bytes_received== -1 )
@@ -84,7 +86,7 @@ int main(int argc,char* argv[])
     if(bytes==-1)
 	    break;
    }
-    printf("Successfully received\n");
+    printf("\nSuccessfully received\n");
     close(client_socket);
 	fclose(fp);
 	return 0;
