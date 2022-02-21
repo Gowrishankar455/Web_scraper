@@ -18,13 +18,13 @@ int main(int argc,char* argv[])
 		printf("Invalid input");
 	}
         struct hostent *he;
-	he = gethostbyname(domain); //changing the host domain to ip address
+	he = gethostbyname(domain); //Changing the host domain name to ip address
 	if (he == NULL){
        herror("gethostbyname");
        exit(1);
         }
 
-        int client_socket=socket(AF_INET,SOCK_STREAM,0); //creating a socket
+        int client_socket=socket(AF_INET,SOCK_STREAM,0); //Creating a socket
         if(client_socket==-1){
 		perror("Socket");
                 exit(1);
@@ -58,7 +58,7 @@ int main(int argc,char* argv[])
    int bytes=0;
    char *ptr=response+1;
  
- //skip the status and other information
+ //Skip the status and other information
     while(bytes_received = recv(client_socket, ptr, 1, 0)){
         if(bytes_received==-1){
             perror("Parse Header");
@@ -72,7 +72,7 @@ int main(int argc,char* argv[])
         ptr++;
     }
 
- //Saving html source code
+ //Saving the html source code
 
    while( bytes_received = recv(client_socket, response, sizeof(response), 0)){
     if( bytes_received== -1 )
