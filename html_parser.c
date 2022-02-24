@@ -8,16 +8,15 @@ char c[10],ch;
 int i=0;
 while(1)
 { 
-if(ch=='>')
+if(ch=='>')   
 {
 	c[i-1]='\0';
-        if(strcmp("script",c)==0||strcmp("style",c)==0)
+        if(strcmp("script",c)==0||strcmp("style",c)==0)   //finding close tag for style and script commands
 		return 1;
 	else 
 		return 0;
 }
  ch=fgetc(ptr);
- putchar(ch);
  c[i++]=ch;
 }
 return 0;
@@ -30,14 +29,13 @@ void findword(FILE* ptr,int k){
  int afl=0;
  c[i++]=k;
   while(1){
-		  if((ch=fgetc(ptr))=='>'){
+		  if((ch=fgetc(ptr))=='>'){     //Search for close tag
 		     c[i]='\0';
 		     int flag=0; 
-		     printf("%s\n",c);
-                     if(strcmp("script",c)==0||strcmp("style",c)==0){
+		
+                     if(strcmp("script",c)==0||strcmp("style",c)==0){   //for script and style commands
 			     while(1){
 				  ch=fgetc(ptr);
-				 // putchar(ch);
 		                if(ch=='<'&&(ch=fgetc(ptr))=='/')
 		                if(scripstyle(ptr))
 				       return ;	
@@ -59,10 +57,9 @@ int ch;
 int flag=0;
  do{
 	 ch=fgetc(ptr);
-	// putchar(ch);
 	 if(ch=='<'){
             ch=fgetc(ptr);
-	    if(ch=='!')
+	    if(ch=='!')     //Skip the comments
 	    {
 		    while(1){
                        if((ch=fgetc(ptr))=='-'||ch=='D')
@@ -90,12 +87,14 @@ int flag=0;
 	 continue;
 	 }
  }while(ch!=EOF);
+ 
 fclose(fp);
 fclose(ptr);
 FILE *fpt=fopen("Words.txt","r");
 FILE *ptrr=fopen("Revised_word.txt","w");
 int chr;
-do 
+
+do                            // Removing the special characters and extra spaces from the parsed file
 {
 chr=fgetc(fpt);
 if(chr>=32&&ch<=126)
@@ -105,8 +104,8 @@ fputc(' ',ptrr);
 if(chr==EOF)
 fputc(chr,ptrr);
 }while((chr!=EOF));
+
 fclose(fpt);
 fclose(ptrr);
 }
-
 
