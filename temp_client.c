@@ -8,23 +8,26 @@
 #include<errno.h>
 #include<string.h>
 #include<netdb.h>
+#include "html_parser.c"
+#include "word_tree.c"
 int main(int argc,char* argv[])
 {       char domain[100];
 	char path[100];
-        strcpy(domain,argv[1]);
-	strcpy(path,argv[2]);
-
-        if(argc<2){
-		printf("Invalid input");
+             if(argc==2){
+		printf("No path");
+                 strcpy(domain,argv[1]);
+	}
+	if(argc==3){
+             strcpy(path,argv[2]);
 	}
         struct hostent *he;
-	he = gethostbyname(domain); //Changing the host domain name to ip address
+	he = gethostbyname(domain); //changing the host domain to ip address
 	if (he == NULL){
        herror("gethostbyname");
        exit(1);
         }
 
-        int client_socket=socket(AF_INET,SOCK_STREAM,0); //Creating a socket
+        int client_socket=socket(AF_INET,SOCK_STREAM,0); //creating a socket
         if(client_socket==-1){
 		perror("Socket");
                 exit(1);
@@ -58,7 +61,7 @@ int main(int argc,char* argv[])
    int bytes=0;
    char *ptr=response+1;
  
- //Skip the status and other information
+ //skip the status and other information
     while(bytes_received = recv(client_socket, ptr, 1, 0)){
         if(bytes_received==-1){
             perror("Parse Header");
@@ -72,7 +75,7 @@ int main(int argc,char* argv[])
         ptr++;
     }
 
- //Saving the html source code
+ //Saving html source code
 
    while( bytes_received = recv(client_socket, response, sizeof(response), 0)){
     if( bytes_received== -1 )
@@ -89,5 +92,9 @@ int main(int argc,char* argv[])
     printf("\nSuccessfully received\n");
     close(client_socket);
 	fclose(fp);
+	fn1();
+	printf("Successfully parsed\n");
+	maketree();
+	printf("Successfully ranked\n");
 	return 0;
 }
