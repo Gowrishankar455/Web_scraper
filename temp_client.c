@@ -95,6 +95,6 @@ int main(int argc,char* argv[])
 	fn1();
 	printf("Successfully parsed\n");
 	maketree();
-	printf("Successfully ranked\n");
+	printf("Successfully ranked \n");
 	return 0;
 }
