@@ -4,19 +4,18 @@
 #include<string.h>
 
 int scripstyle(FILE* ptr){
-char c[10],ch=' ';
+char c[10],ch;
 int i=0;
 while(1)
 { 
+ ch=fgetc(ptr);
 if(ch=='>')
-{	if(i!=0)
-       c[i-1]='\0';
+{       c[i]='\0';
         if(strcmp("script",c)==0||strcmp("style",c)==0)
 		return 1;
 	else 
 		return 0;
 }
- ch=fgetc(ptr);
  c[i++]=ch;
 }
 return 0;
@@ -34,7 +33,6 @@ void findword(FILE* ptr,int k){
                      if(strcmp("script",c)==0||strcmp("style",c)==0){
 			     while(1){
 				  ch=fgetc(ptr);
-				  putchar(ch);
 				 if(ch=='<'&&(ch=fgetc(ptr))=='/')
 		                if(scripstyle(ptr))
 				       return ;	
@@ -44,7 +42,6 @@ void findword(FILE* ptr,int k){
         if(ch==' '||ch=='\n') afl=1;
 	if(!afl)
 	  c[i++]=ch;
-	// putchar(ch);
   }
 }
 void fn1(){
