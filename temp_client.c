@@ -18,10 +18,15 @@ int main(int argc,char* argv[])
                  strcpy(domain,argv[1]);
 	}
 	if(argc==3){
+	     strcpy(domain,argv[1]);
              strcpy(path,argv[2]);
 	}
         struct hostent *he;
 	he = gethostbyname(domain); //changing the host domain to ip address
+	char request[1024];
+	char response[9999];
+        snprintf(request, sizeof(request), "GET /%s HTTP/1.1\r\nHost: %s\r\n\r\n", path, domain);
+         printf("%s",request);
 	if (he == NULL){
        herror("gethostbyname");
        exit(1);
@@ -44,10 +49,7 @@ int main(int argc,char* argv[])
        exit(1);
          }
 
-	char request[1024];
-	char response[9999];
-        snprintf(request, sizeof(request), "GET /%s HTTP/1.1\r\nHost: %s\r\n\r\n", path, domain);
-        printf("%s",request);
+	       
         if(send(client_socket, request, strlen(request), 0)==-1){
         perror("send");
         exit(1); 
@@ -95,6 +97,6 @@ int main(int argc,char* argv[])
 	fn1();
 	printf("Successfully parsed\n");
 	maketree();
-	printf("Successfully ranked \n");
+	printf("Successfully ranked\n");
 	return 0;
 }
