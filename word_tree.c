@@ -83,7 +83,7 @@ void findmax(int *max,struct tree* root)
 
 void maketree(){
 struct tree* root=NULL;
-FILE *fp=fopen("Revised_word.txt","r");
+FILE *fp=fopen("Words_revised.txt","r");
 if(fp==NULL)
 printf("No file exists");
 int c;
@@ -118,4 +118,3 @@ for(int t=max;t>0;t--){
 }
 fclose(fp);
 }
-
