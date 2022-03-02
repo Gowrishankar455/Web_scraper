@@ -11,6 +11,7 @@ while(1)
  ch=fgetc(ptr);
 if(ch=='>')
 {       c[i]='\0';
+//printf("|| %s at\n",c);
         if(strcmp("script",c)==0||strcmp("style",c)==0)
 		return 1;
 	else 
@@ -29,6 +30,7 @@ void findword(FILE* ptr,int k){
   while(1){
 		  if((ch=fgetc(ptr))=='>'){
 		     c[i]='\0';
+		//     printf("|| %s in\n",c);
 		     int flag=0; 	
                      if(strcmp("script",c)==0||strcmp("style",c)==0){
 			     while(1){
@@ -42,6 +44,7 @@ void findword(FILE* ptr,int k){
         if(ch==' '||ch=='\n') afl=1;
 	if(!afl)
 	  c[i++]=ch;
+	// putchar(ch);
   }
 }
 void fn1(){
@@ -87,7 +90,7 @@ int linenum=1;
 fclose(fp);
 fclose(ptr);
 FILE *fpt=fopen("Words.txt","r");
-FILE *ptrr=fopen("Revised_word.txt","w");
+FILE *ptrr=fopen("Words_revised.txt","w");
 int chr;
 
 do 
@@ -107,5 +110,3 @@ fputc(chr,ptrr);
 fclose(fpt);
 fclose(ptrr);
 }
-
-
