@@ -20,7 +20,7 @@ int main(int argc,char* argv[])
 {    char domain[100];
 	char path[100];
            if(argc==2){
-		printf("No path");
+		printf("No path\n");
                  strcpy(domain,argv[1]);
 	}
 	if(argc==3){
