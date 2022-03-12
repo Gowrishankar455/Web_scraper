@@ -45,7 +45,7 @@ int main(int argc,char* argv[])
         }
         printf("gethostbyname succeeded\n");
        
-        ip = inet_ntoa(*((struct in_addr*)hent->h_addr_list[0]));     //Function to return the ip address in string 
+        ip = inet_ntoa(*((struct in_addr*)hent->h_addr_list[0]));     //Function call to return the ip address in string format
         printf("Host IP: %s\n", ip);
     
         sock = socket(AF_INET, SOCK_STREAM, 0); //Function call to get the socket descriptor
@@ -60,7 +60,7 @@ int main(int argc,char* argv[])
         sin.sin_addr.s_addr = inet_addr(ip);     // Assigning Ip address
         sin.sin_port = htons(PORT);              // Assigning Port number
          
-        iResult = connect(sock, (struct sockaddr*)&sin, sizeof(sin));  //Function to connect to host     
+        iResult = connect(sock, (struct sockaddr*)&sin, sizeof(sin));  //Function call to connect to host     
         if(iResult < 0)
         {
                printf("connect failed: %d\n", errno);
@@ -79,7 +79,7 @@ int main(int argc,char* argv[])
         OpenSSL_add_all_algorithms();          //Registers the available SSL/TLS ciphers and digests
         ERR_load_crypto_strings();             //Registers the error strings for all libcrypto functions.
         SSL_load_error_strings();              //Registers the libssl error strings
-        SSL_CTX* ctx = SSL_CTX_new(TLSv1_2_client_method());         //Function to create a new context for client application
+        SSL_CTX* ctx = SSL_CTX_new(TLSv1_2_client_method());         //Function call to create a new context for client application
        
         if(ctx == NULL)
         {
@@ -96,7 +96,7 @@ int main(int argc,char* argv[])
                return -1;
         }
         printf("ssl loaded\n");
-        SSL_set_fd(ssl, sock);                //Function to assign a socket to SSL structure
+        SSL_set_fd(ssl, sock);                //Function call to assign a socket to SSL structure
         SSL_connect(ssl);                     //Initiates the TLS/SSL handshake with the server
    
         char request[1024];
@@ -105,7 +105,7 @@ int main(int argc,char* argv[])
         //Adding GET request inside the request buffer
         snprintf(request, sizeof(request), "GET /%s HTTP/1.1\r\nHost: %s\r\n\r\n", path, domain);
           
-        iResult = SSL_write(ssl, request, strlen(request));           //Function to write the request buffer into the ssl connection
+        iResult = SSL_write(ssl, request, strlen(request));           //Function call to write the request buffer into the ssl connection
         if(iResult <= 0)
         {
               printf("SSL write failed\n");
@@ -187,9 +187,9 @@ int main(int argc,char* argv[])
                return -1;
         }
         printf("Socket closed\n");
-        parser();                      //Function to parse the html source code
+        parser();                      //Function call to parse the html source code
 	printf("Successfully parsed\n");
-	ranker();                    //Function to rank the words
+	ranker();                     //Function call to rank the words
 	printf("Successfully ranked\n");
 	return 0;
 }
