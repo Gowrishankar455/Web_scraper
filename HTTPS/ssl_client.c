@@ -21,7 +21,7 @@ int main(int argc,char* argv[])
        char domain[100];
        char path[100];
        if(argc==2)
-        {                       //Urls with only domain name
+        {                       //Urls with only domain name only
 		printf("No path\n");
                strcpy(domain,argv[1]);
         }
@@ -102,7 +102,7 @@ int main(int argc,char* argv[])
         char request[1024];
         char response[9999];
         
-        //GET request in a request buffer
+        //Adding GET request inside the request buffer
         snprintf(request, sizeof(request), "GET /%s HTTP/1.1\r\nHost: %s\r\n\r\n", path, domain);
           
         iResult = SSL_write(ssl, request, strlen(request));           //Function to write the request buffer into the ssl connection
