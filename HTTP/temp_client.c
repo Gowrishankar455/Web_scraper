@@ -82,7 +82,7 @@
          char *ptr=response+1;
  
        //skip the status and other information
-        while(bytes_received = recv(client_socket, ptr, 1, 0))   //Receiving response from host
+         while(bytes_received = recv(client_socket, ptr, 1, 0))   //Receiving response from host
          {
               if(bytes_received==-1)
               {
@@ -96,23 +96,23 @@
               )       break;
 
               ptr++;
-        }
+         }
 
        //Saving html source code
 
-       while( bytes_received = recv(client_socket, response, sizeof(response), 0))
-       {
+        while( bytes_received = recv(client_socket, response, sizeof(response), 0))
+        {
             if( bytes_received== -1 )
 	     {
 	 	    perror("receive");
 		    return(1);
 	     }
-       bytes+=bytes_received;
-       fwrite(response,1,bytes_received,fp);
-       printf("Bytes recieved: %d\n",bytes);
+        bytes+=bytes_received;
+        fwrite(response,1,bytes_received,fp);
+        printf("Bytes recieved: %d\n",bytes);
            if(bytes==-1)
 	          break;
-       }
+        }
        printf("\nSuccessfully received\n");
        close(client_socket);                                 //Closes the socket connection associated with socket descriptor
        fclose(fp);
