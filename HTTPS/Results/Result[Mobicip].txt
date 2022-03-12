@@ -56,7 +56,7 @@ sos 4
 trial 4
 website 4
 when 4
-/month 3
+month 3
 about 3
 access 3
 annually 3
