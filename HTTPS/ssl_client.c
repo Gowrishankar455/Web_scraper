@@ -122,7 +122,7 @@ int main(int argc,char* argv[])
         int bytes=0;
         char *ptr=response+1;
  
- //skip the status and other information
+       //skip the status and other information
         while(iResult = SSL_read(ssl, ptr,1))
         {
               if(iResult==-1)
@@ -138,7 +138,7 @@ int main(int argc,char* argv[])
              ptr++;
         }
  
- //Saving html source code
+      //Saving html source code
 
        while( iResult = SSL_read(ssl, response,sizeof(response)))
        {
