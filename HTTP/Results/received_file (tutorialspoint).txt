@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<title>What is a Socket?</title>
+<meta charset="utf-8">
+<meta name="description" content="What is a Socket?,  Sockets allow communication between two different processes on the same or different machines. To be more precise, it's a way to talk to other computers using s"/>
+<meta name="keywords" content="C, C++, Python, Java, HTML, CSS, JavaScript, SQL, PHP, jQuery, XML, DOM, Bootstrap, Tutorials, Articles, Programming, training, learning, quiz, preferences, examples, code"/>
+<link rel="canonical" href="https://www.tutorialspoint.com/unix_sockets/what_is_socket.htm" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes">
+<link rel="stylesheet" href="/themes/css/style-min-v1.css?v=5.3">
+<script src="/themes/js/prism-core.min.js"></script>
+<script src="/themes/js/prism-autoloader.min.js"></script>
+<script src="/themes/js/script-min-v1.js?v=5.3"></script>
+<script>
+function printPage() { window.print(); }
+function readCookie(name) {
+     var nameEQ = name + "=";
+     var ca = document.cookie.split(';');
+     for (var i = 0; i < ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+          if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+     }
+     return null;
+}
+</script>
+<script id="adp1" data-cfasync="false">(function(w, d) { var s = d.createElement('script'); s.src = '//cdn.adpushup.com/40046/adpushup.js'; s.type = 'text/javascript'; s.async = true; (d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s); })(window, document);</script>
+<script id="adp2" data-cfasync="false">(function(w, d) {var cval = readCookie('subscription_purchased');if(cval == '1'){ return; } var s = d.createElement('script'); s.src = '//delivery.adrecover.com/18107/adRecover.js'; s.type = 'text/javascript'; s.async = true; (d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s); })(window, document);</script>
+<style>
+.butnn-save a{color:#fff;} .notes_msg{color:green; margin-left:20px; margin-top:15px;}
+.right-menu .mui-btn {
+    background-color:#28aa8a;
+}
+a.demo {
+    background:#28aa8a;
+}
+li.heading {
+    background:#28aa8a;
+}
+.course-box{background:#28aa8a}
+.home-intro-sub p{color:#28aa8a}
+a.demo{
+   top: 12px;
+   float:right;
+}
+.prettyprint{
+   width: 99%;
+}
+pre.prettyprint.tryit {min-height:37px; background: #eee url(/unix_sockets/images/try-it.jpg) top right no-repeat !important}.site-message img {
+   width:100%;
+}
+@media (max-width:544px){
+   .site-message img {
+       width: 200%;
+       position: relative;
+       left: -50%;
+   }
+}
+</style>
+</head>
+<body>
+<header id="header">
+<div class="site-message">
+  <a href="https://www.tutorialspoint.com/latest/prime-packs">
+  <img src="/images/top-banner.jpg?v=102" alt="Video Courses Sale"/>
+  </a>
+</div>
+<!-- pop-up -->
+<!-- pop-up -->
+<div class="pop-modal overlay-pop popdiv">
+<div class="modal-window small">
+<span class="close" title="close">×</span>
+<div class="pop-content">
+</div>
+<span class="msg" ></span>
+</div>
+</div>
+<div class="wrap_loader">
+<div class="imgLoader"></div>
+</div>
+<input type="hidden" id="vu" name="vu" value="" />
+<!-- pop-up -->
+
+<!-- Top sub-menu Starts Here -->
+<div class="mui-appbar mui-container-fulid top-menu">
+<div class="mui-container">
+<div class="top-menu-item home">
+<a href="https://www.tutorialspoint.com/index.htm" target="_blank" title="TutorialsPoint - Home"><i class="fal fa-home"></i> <span>Home</span></a>
+</div>
+<div class="top-menu-item qa">
+<a href="https://www.tutorialspoint.com/about/about_careers.htm" target="_blank" title="Job @ Tutorials Point"><i class="fa fa-suitcase"></i> <span>Jobs</span></a>
+</div>
+<div class="top-menu-item tools">
+<a href="https://www.tutorialspoint.com/online_dev_tools.htm" target="_blank" title="Tools - Online Development and Testing Tools"><i class="fal fa-cogs"></i> <span>Tools</span></a>
+</div>
+<div class="top-menu-item coding-ground">
+<a href="https://www.tutorialspoint.com/codingground.htm" target="_blank" title="Coding Ground - Free Online IDE and Terminal"><i class="fal fa-code"></i> <span>Coding Ground </span></a> 
+</div>
+<div class="top-menu-item current-affairs">
+<a href="https://www.tutorialspoint.com/current_affairs.htm" target="_blank" title="Daily Current Affairs"><i class="fal fa-layer-plus"></i> <span>Current Affairs</span></a>
+</div>
+<div class="top-menu-item upsc-notes">
+<a href="https://www.tutorialspoint.com/upsc_ias_exams.htm" target="_blank" title="UPSC IAS Exams Notes - TutorialsPoint"><i class="fal fa-user-tie"></i> <span>UPSC Notes</span></a>
+</div>      
+<div class="top-menu-item articles">
+<a href="https://www.tutorialspoint.com/tutor_connect/index.php" target="_blank" title="Top Online Tutors - Tutor Connect"><i class="fal fa-user"></i> <span>Online Tutors</span></a>
+</div>
+<div class="top-menu-item whiteboard">
+<a href="https://www.tutorialspoint.com/whiteboard.htm" target="_blank" title="Free Online Whiteboard"><i class="fal fa-chalkboard"></i> <span>Whiteboard</span></a>
+</div>
+<div class="top-menu-item articles">
+<a href="https://www.tutorix.com" target="_blank" title="Tutorx - The Best Learning App" rel="nofollow"><i class="fal fa-video"></i> <span>Tutorix</span></a> 
+</div>
+<div class="top-menu-item net-meeting">
+<a href="https://www.tutorialspoint.com/market/login.asp?v=4.00" target="_blank" title="Login TutorialsPoint"><i class="fal fa-sign-in-alt"></i> <span>Login</span></a> 
+</div>      
+<div class="social-menu-item">
+<a href="https://www.facebook.com/tutorialspointindia" target="_blank" rel="nofollow" data-placement="bottom" title="tutorialspoint @ Facebook"><i class="fab fa-facebook-f"></i></a> 
+<a href="https://www.twitter.com/tutorialspoint" target="_blank" rel="nofollow" data-placement="bottom" title="tutorialspoint @ Twitter"><i class="fab fa-twitter"></i></a>
+<a href="https://www.linkedin.com/company/tutorialspoint" target="_blank" rel="nofollow" data-placement="bottom" title="tutorialspoint @ Linkedin"><i class="fab fa-linkedin-in"></i></a>
+<a href="https://www.youtube.com/channel/UCVLbzhxVTiTLiVKeGV7WEBg" target="_blank" rel="nofollow" data-placement="bottom" title="tutorialspoint YouTube"><i class="fab fa-youtube"></i></a>
+</div>        
+</div>
+</div>
+<!-- Top sub-menu Ends Here -->
+<!-- Top main-menu Starts Here -->
+<div class="mui-appbar mui-container-fulid mui--appbar-line-height mui--z1" id="logo-menu">
+<div class="mui-container">
+<div class="left-menu">
+<a href="https://www.tutorialspoint.com/index.htm" title="Tutorialspoint">
+<img class="tp-logo" alt="tutorialspoint" src="/unix_sockets/images/logo.png">
+</a>
+<div class="mui-dropdown">
+<a class="mui-btn mui-btn--primary categories" data-mui-toggle="dropdown"><i class="fa fa-th-large"></i> 
+<span>Categories <span class="mui-caret"></span></span></a>            
+<ul class="mui-dropdown__menu cat-menu">
+<li>
+<ul>
+<li><a href="/academic_tutorials.htm"><i class="fa fa-caret-right"></i> Academic Tutorials</a></li>
+<li><a href="/big_data_tutorials.htm"><i class="fa fa-caret-right"></i> Big Data &amp; Analytics </a></li>
+<li><a href="/computer_programming_tutorials.htm"><i class="fa fa-caret-right"></i> Computer Programming </a></li>
+<li><a href="/computer_science_tutorials.htm"><i class="fa fa-caret-right"></i> Computer Science </a></li>
+<li><a href="/database_tutorials.htm"><i class="fa fa-caret-right"></i> Databases </a></li>
+<li><a href="/devops_tutorials.htm"><i class="fa fa-caret-right"></i> DevOps </a></li>
+<li><a href="/digital_marketing_tutorials.htm"><i class="fa fa-caret-right"></i> Digital Marketing </a></li>
+<li><a href="/engineering_tutorials.htm"><i class="fa fa-caret-right"></i> Engineering Tutorials </a></li>
+<li><a href="/upsc_ias_exams.htm"><i class="fa fa-caret-right"></i> Exams Syllabus </a></li>
+<li><a href="/famous_monuments.htm"><i class="fa fa-caret-right"></i> Famous Monuments </a></li>
+<li><a href="/gate_exams_tutorials.htm"><i class="fa fa-caret-right"></i> GATE Exams Tutorials</a></li>
+<li><a href="/latest_technologies.htm"><i class="fa fa-caret-right"></i> Latest Technologies </a></li>
+<li><a href="/machine_learning_tutorials.htm"><i class="fa fa-caret-right"></i> Machine Learning </a></li>
+<li><a href="/mainframe_tutorials.htm"><i class="fa fa-caret-right"></i> Mainframe Development </a></li>
+<li><a href="/management_tutorials.htm"><i class="fa fa-caret-right"></i> Management Tutorials </a></li>
+<li><a href="/maths_tutorials.htm"><i class="fa fa-caret-right"></i> Mathematics Tutorials</a></li>
+<li><a href="/microsoft_technologies_tutorials.htm"><i class="fa fa-caret-right"></i> Microsoft Technologies </a></li>
+<li><a href="/misc_tutorials.htm"><i class="fa fa-caret-right"></i> Misc tutorials </a></li>
+<li><a href="/mobile_development_tutorials.htm"><i class="fa fa-caret-right"></i> Mobile Development </a></li>
+<li><a href="/java_technology_tutorials.htm"><i class="fa fa-caret-right"></i> Java Technologies </a></li>
+<li><a href="/python_technologies_tutorials.htm"><i class="fa fa-caret-right"></i> Python Technologies </a></li>
+<li><a href="/sap_tutorials.htm"><i class="fa fa-caret-right"></i> SAP Tutorials </a></li>
+<li><a href="/scripting_lnaguage_tutorials.htm"><i class="fa fa-caret-right"></i>Programming Scripts </a></li>
+<li><a href="/selected_reading.htm"><i class="fa fa-caret-right"></i> Selected Reading </a></li>
+<li><a href="/software_quality_tutorials.htm"><i class="fa fa-caret-right"></i> Software Quality </a></li>
+<li><a href="/soft_skill_tutorials.htm"><i class="fa fa-caret-right"></i> Soft Skills </a></li>
+<li><a href="/telecom_tutorials.htm"><i class="fa fa-caret-right"></i> Telecom Tutorials </a></li>
+<li><a href="/upsc_ias_exams.htm"><i class="fa fa-caret-right"></i> UPSC IAS Exams </a></li>
+<li><a href="/web_development_tutorials.htm"><i class="fa fa-caret-right"></i> Web Development </a></li>
+<li><a href="/sports_tutorials.htm"><i class="fa fa-caret-right"></i> Sports Tutorials </a></li>
+<li><a href="/xml_technologies_tutorials.htm"><i class="fa fa-caret-right"></i> XML Technologies </a></li>
+<li><a href="/multi_language_tutorials.htm"><i class="fa fa-caret-right"></i> Multi-Language</a></li>
+<li><a href="/questions_and_answers.htm"><i class="fa fa-caret-right"></i> Interview Questions</a></li>
+</ul>
+</li>
+</ul>
+<div class="clear"></div>
+</div> 
+</div>
+<div class="right-menu">
+<div class="toc-toggle">
+<a href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+</div>
+<div class="mobile-search-btn">
+<a href="https://www.tutorialspoint.com/index.htm"><i class="fal fa-search"></i></a>
+</div>
+<div class="search-box-wrap">
+	<div class="search-box" style="">
+		<div>
+			<input class="input" type="text" id="search-strings" name="key" placeholder="Search latest courses, ebooks and prime packs..." autocomplete="off">
+			<button id="btnSearch"><i class="fa fa-search" title="Search"></i></button>
+		</div>
+	</div>		
+	<div class="search-box" id="search-results"></div>
+	<div class="clear"></div>
+	<script>
+		$('#search-strings').keyup(function () {
+			var keyword = $('#search-strings').val();
+			if (keyword != "" && keyword.length > 2) {
+				$.ajax({
+					url:"https://search.tutorialspoint.com/market_urls_suggestion.php",
+					method: "POST",
+               type: 'POST',
+					dataType: "json",
+               cache:false,
+					data: {
+						'keyword': keyword
+					},
+					error: function (err) {
+						console.log ( err );
+					},
+					success: function (data) {
+						if (data.length > 0) {
+					//var str = '<div class="search_title arrow_search">Search Results</div><ul>';
+					var str = '<div class="search-overlay"><ul>';
+					data.forEach((item) => {
+					   var iconStr = '<i class="fa fa-play-circle"></i>';
+					   if(item.type=='E'){
+						  iconStr = '<i class="fa fa-file-pdf"></i>';
+					   }
+					   if(item.type=='B'){
+						  iconStr = '<i class="fa fa-cubes"></i>';
+					   }
+					   if(item.type=='A' || item.type=='I' || item.type=='P'){ // profile/author/instructor
+						  iconStr = '<i class="fa fa-user"></i>';
+					   }
+					   str = str + '<a href="'+item.url+'" target="_blank"><li class="clsHeadQuestion">'+iconStr+' '+item.name+'</li></a>'; 
+					});
+					str = str + '</ul><br/></div><div class="clear"></div>';
+							$('#search-results').show();
+							$('#search-results').html(str);
+						} else {
+							$('#search-results').hide();
+							$('#search-results').html('');
+						}
+					}
+				});
+			}else{
+				$('#search-results').hide();
+				$('#search-results').html('');
+			}
+		});
+	 $('#btnSearch').click(function(){
+		   var keyword = $('#search-strings').val();
+		   window.location.href = "https://www.tutorialspoint.com/search/"+keyword;
+	 });
+	 $(document).mouseup(function(e) 
+	 {
+		 var container = $('#search-results');            
+		 if (!container.is(e.target) && container.has(e.target).length === 0) 
+		 {
+			 container.hide();
+		 }
+	 });
+	</script>
+</div>
+<div class="menu-btn videos-btn">
+<a href="https://www.tutorialspoint.com/questions/index.php"><i class="fa fa-location-arrow"></i> <span>Q/A</span></a>
+</div>
+<div class="menu-btn library-btn">
+<a href="https://www.tutorialspoint.com/tutorialslibrary.htm"><i class="fa fa-books"></i> <span>Library</span></a>
+</div>
+<div class="menu-btn ebooks-btn">
+<a href="https://www.tutorialspoint.com/latest/ebooks"><i class="fa fa-book-reader"></i> <span>eBooks</span></a>
+</div>
+<div class="menu-btn videos-btn">
+<a href="https://www.tutorialspoint.com/latest/courses"><i class="fa fa-video"></i> <span>Courses</span></a> 
+</div>
+</div>
+</div>
+</div>
+<!-- Top main-menu Ends Here -->
+</header>
+<div class="mui-container-fluid content">
+<div class="mui-container">
+<!-- Tutorial ToC Starts Here -->
+<div class="mui-col-md-3 tutorial-toc">
+<div class="mini-logo">
+<img src="/unix_sockets/images/unix-socket-mini-logo.jpg" alt="Unix Sockets Tutorial" />
+</div>
+<ul class="toc chapters">
+<li class="heading">Unix Socket Tutorial</li>
+<li><a href="/unix_sockets/index.htm">Unix Socket - Home</a></li>
+<li><a href="/unix_sockets/what_is_socket.htm">Unix Socket - What is a Socket?</a></li>
+<li><a href="/unix_sockets/network_addresses.htm">Unix Socket - Network Addresses</a></li> 
+<li><a href="/unix_sockets/network_host_names.htm">Unix Socket - Network Host Names</a></li>
+<li><a href="/unix_sockets/client_server_model.htm">Unix Socket - Client Server Model</a></li>
+<li><a href="/unix_sockets/socket_structures.htm">Unix Socket - Structures</a></li>
+<li><a href="/unix_sockets/ports_and_services.htm">Unix Socket - Ports and Services</a></li>
+<li><a href="/unix_sockets/network_byte_orders.htm">Unix Socket - Network Byte Orders</a></li>
+<li><a href="/unix_sockets/ip_address_functions.htm">Unix Socket - IP Address Functions</a></li>
+<li><a href="/unix_sockets/socket_core_functions.htm">Unix Socket - Core Functions</a></li>
+<li><a href="/unix_sockets/socket_helper_functions.htm">Unix Socket - Helper Functions</a></li>
+<li><a href="/unix_sockets/socket_server_example.htm">Unix Socket - Server Example</a></li>
+<li><a href="/unix_sockets/socket_client_example.htm">Unix Socket - Client Example</a></li>
+<li><a href="/unix_sockets/socket_summary.htm">Unix Socket - Summary</a></li>
+</ul>
+<ul class="toc chapters">
+<li class="heading">Unix Socket Useful Resources</li>
+<li><a href="/unix_sockets/socket_quick_guide.htm">Unix Socket - Quick Guide</a></li>
+<li><a href="/unix_sockets/socket_useful_resources.htm">Unix Socket - Useful Resources</a></li>
+<li><a href="/unix_sockets/unix_sockets_discussion.htm">Unix Socket - Discussion</a></li>
+</ul>
+<ul class="toc reading">
+<li class="sreading">Selected Reading</li>
+<li><a target="_top" href="/upsc_ias_exams.htm">UPSC IAS Exams Notes</a></li>
+<li><a target="_top" href="/developers_best_practices/index.htm">Developer's Best Practices</a></li>
+<li><a target="_top" href="/questions_and_answers.htm">Questions and Answers</a></li>
+<li><a target="_top" href="/effective_resume_writing.htm">Effective Resume Writing</a></li>
+<li><a target="_top" href="/hr_interview_questions/index.htm">HR Interview Questions</a></li>
+<li><a target="_top" href="/computer_glossary.htm">Computer Glossary</a></li>
+<li><a target="_top" href="/computer_whoiswho.htm">Who is Who</a></li>
+</ul>
+<div id="stickyparent">
+<div style="height:250px;width:300px;" id="sticky-ad">
+<div id="430c9911-782f-495d-88f9-69f58ca8c9a4" class="_ap_apex_ad" >
+<script>
+var adpushup = adpushup || {};
+adpushup.que = adpushup.que || [];
+adpushup.que.push(function() {
+adpushup.triggerAd("430c9911-782f-495d-88f9-69f58ca8c9a4");
+});
+</script>
+</div>
+</div>
+</div>
+</div>
+<!-- Tutorial ToC Ends Here -->
+<!-- Tutorial Content Starts Here -->
+<div class="mui-col-md-6 tutorial-content">
+<h1>What is a Socket?</h1>
+<hr />
+<div id="google-top-ads">
+<div class="top-ad-heading">Advertisements</div>
+<div style="text-align:center" class="google-top-ads">
+<div id="adp_top_ads" style="text-align:center!important;min-height:90px!important"></div>
+<script>
+     var adPos = document.getElementById('adp_top_ads');
+     var ad_id_720 = "8014640d-fd34-4b2e-9b1b-cc67234a2325";
+     var ad_id_650 = "2d1bb2c4-eb72-471d-9c80-1bf5514728c1";
+     var ad_id_300 = "df94a1a9-ae2f-432d-9a92-d93823ff4503";
+     var width = window.innerWidth;
+     var ad_id = ad_id_720;
+     if( width <= 768 ){
+        ad_id =  ad_id_300;
+     }else if( width <= 1435 ){
+        ad_id =  ad_id_650;
+     }
+     adPos.innerHTML = '<div id="' + ad_id + '" class="_ap_apex_ad"></div>';
+     var adpushup = adpushup || {};
+     adpushup.que = adpushup.que || [];
+     adpushup.que.push(function() {
+     adpushup.triggerAd(ad_id);
+     });
+</script>
+</div>
+</div>
+<br>
+<div class="mui-container-fluid button-borders">
+<div class="pre-btn">
+<a href="/unix_sockets/index.htm"><i class="fal fa-chevron-circle-left"></i> Previous Page</a>
+</div>
+<div class="nxt-btn">
+<a href="/unix_sockets/network_addresses.htm">Next Page <i class="fal fa-chevron-circle-right"></i>&nbsp;</a>
+</div>
+</div>
+<div class="clearer"></div>
+<p>Sockets allow communication between two different processes on the same or different machines. To be more precise, it's a way to talk to other computers using standard Unix file descriptors. In Unix, every I/O action is done by writing or reading a file descriptor. A file descriptor is just an integer associated with an open file and it can be a network connection, a text file, a terminal, or something else.</p>
+<p>To a programmer, a socket looks and behaves much like a low-level file descriptor. This is because commands such as read() and write() work with sockets in the same way they do with files and pipes.</p>
+<p>Sockets were first introduced in 2.1BSD and subsequently refined into their current form with 4.2BSD. The sockets feature is now available with most current UNIX system releases.</p>
+<h2>Where is Socket Used?</h2>
+<p>A Unix Socket is used in a client-server application framework. A server is a process that performs some functions on request from a client. Most of the application-level protocols like FTP, SMTP, and POP3 make use of sockets to establish connection between client and server and then for exchanging data.</p>
+<h2>Socket Types</h2>
+<p>There are four types of sockets available to the users. The first two are most commonly used and the last two are rarely used.</p>
+<p>Processes are presumed to communicate only between sockets of the same type but there is no restriction that prevents communication between sockets of different types.</p>
+<ul class="list">
+<li><p><b>Stream Sockets</b> &minus; Delivery in a networked environment is guaranteed. If you send through the stream socket three items "A, B, C", they will arrive in the same order &minus; "A, B, C". These sockets use TCP (Transmission Control Protocol) for data transmission. If delivery is impossible, the sender receives an error indicator. Data records do not have any boundaries.</p></li>
+<li><p><b>Datagram Sockets</b> &minus; Delivery in a networked environment is not guaranteed. They're connectionless because you don't need to have an open connection as in Stream Sockets &minus; you build a packet with the destination information and send it out. They use UDP (User Datagram Protocol).</p></li>
+<li><p><b>Raw Sockets</b> &minus; These provide users access to the underlying communication protocols, which support socket abstractions. These sockets are normally datagram oriented, though their exact characteristics are dependent on the interface provided by the protocol. Raw sockets are not intended for the general user; they have been provided mainly for those interested in developing new communication protocols, or for gaining access to some of the more cryptic facilities of an existing protocol.</p></li>
+<li><p><b>Sequenced Packet Sockets</b> &minus; They are similar to a stream socket, with the exception that record boundaries are preserved. This interface is provided only as a part of the Network Systems (NS) socket abstraction, and is very important in most serious NS applications. Sequenced-packet sockets allow the user to manipulate the Sequence Packet Protocol (SPP) or Internet Datagram Protocol (IDP) headers on a packet or a group of packets, either by writing a prototype header along with whatever data is to be sent, or by specifying a default header to be used with all outgoing data, and allows the user to receive the headers on incoming packets.</p></li>
+</ul>
+<h2>What is Next?</h2>
+<p>The next few chapters are meant to strengthen your basics and prepare a foundation before you can write Server and Client programs using <i>socket</i>. If you directly want to jump to see how to write a client and server program, then you can do so but it is not recommended. It is strongly recommended that you go step by step and complete these initial few chapters to make your base before moving on to do programming.</p>
+<div id="load">
+	<div class="mui-col-md-12 mui-col-sm-12 np">
+		<div class="row uk-min-height" id="ebooks_grid">
+						<div class="videos">
+				<h2>Useful Video Courses</h2>
+				<hr>
+																<div class="mui-col-xl-4 mui-col-md-4 mui-col-sm-12 npr">
+					<input type="hidden" class="course_id" value="2389" />
+					<div class="course-card video-card flexi rounded">
+						<div class="course-card-thumbnail">
+							<a href="https://www.tutorialspoint.com/fundamentals_of_unix_and_linux_system_administration/index.asp" class="" data-title="fundamentals_of_unix_and_linux_system_administration" > 
+    <img class="rounded-img" src="https://d3mxt5v3yxgcsr.cloudfront.net/courses/2389/course_2389_image.png" alt="Fundamentals of Unix and Linux System Administration" title="Fundamentals of Unix and Linux System Administration" />
+            <span class="play-button-trigger"></span>
+    </a>						</div>
+						<div class="ribbon-V"><span>Video</span></div>						<div class="course-card-body">
+							<h4 class="h48"><a href="https://www.tutorialspoint.com/fundamentals_of_unix_and_linux_system_administration/index.asp" title="Fundamentals of Unix and Linux System Administration" class="" data-title="fundamentals_of_unix_and_linux_system_administration" >Fundamentals of Unix and Linux System Administration</a></h4>							<div class="ribbon3 multiple-tags-01 shadow">Best Seller</div>
+
+							<p class="videos-details course-list-video">
+    129 Lectures 
+    <span><i class="fa fa-clock"></i> 23 hours </span>
+</p>							<p class="h25"><i class="fa fa-user"></i> <a href="https://www.tutorialspoint.com/profile/eduonix_learning_solutions" >Eduonix Learning Solutions</a></p>
+<style>.h25{height:25px;overflow:hidden;}</style>						</div>
+						<div class="v-courses-price">
+							<div class="btn-width">   
+   <a href="https://www.tutorialspoint.com/fundamentals_of_unix_and_linux_system_administration/index.asp" target="_blank">
+   <div class="btn-success rounded">More Detail</div>
+   </a>
+</div>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				
+																<div class="mui-col-xl-4 mui-col-md-4 mui-col-sm-12 npr">
+					<input type="hidden" class="course_id" value="2821" />
+					<div class="course-card video-card flexi rounded">
+						<div class="course-card-thumbnail">
+							<a href="https://www.tutorialspoint.com/essentials_of_unix_operating_system/index.asp" class="" data-title="essentials_of_unix_operating_system" > 
+    <img class="rounded-img" src="https://d3mxt5v3yxgcsr.cloudfront.net/courses/2821/course_2821_image.jpg" alt="Essentials of Unix Operating System" title="Essentials of Unix Operating System" />
+            <span class="play-button-trigger"></span>
+    </a>						</div>
+						<div class="ribbon-V"><span>Video</span></div>						<div class="course-card-body">
+							<h4 class="h48"><a href="https://www.tutorialspoint.com/essentials_of_unix_operating_system/index.asp" title="Essentials of Unix Operating System" class="" data-title="essentials_of_unix_operating_system" >Essentials of Unix Operating System</a></h4>							
+							<p class="videos-details course-list-video">
+    5 Lectures 
+    <span><i class="fa fa-clock"></i> 4.5 hours </span>
+</p>							<p class="h25"><i class="fa fa-user"></i> <a href="https://www.tutorialspoint.com/profile/frahaan_hussain" >Frahaan Hussain</a></p>
+<style>.h25{height:25px;overflow:hidden;}</style>						</div>
+						<div class="v-courses-price">
+							<div class="btn-width">   
+   <a href="https://www.tutorialspoint.com/essentials_of_unix_operating_system/index.asp" target="_blank">
+   <div class="btn-success rounded">More Detail</div>
+   </a>
+</div>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				
+																<div class="mui-col-xl-4 mui-col-md-4 mui-col-sm-12 npr">
+					<input type="hidden" class="course_id" value="2969" />
+					<div class="course-card video-card flexi rounded">
+						<div class="course-card-thumbnail">
+							<a href="https://www.tutorialspoint.com/unix_command_course_for_beginners/index.asp" class="" data-title="unix_command_course_for_beginners" > 
+    <img class="rounded-img" src="https://d3mxt5v3yxgcsr.cloudfront.net/courses/2969/course_2969_image.png" alt="Unix Command Course for Beginners" title="Unix Command Course for Beginners" />
+            <span class="play-button-trigger"></span>
+    </a>						</div>
+						<div class="ribbon-V"><span>Video</span></div>						<div class="course-card-body">
+							<h4 class="h48"><a href="https://www.tutorialspoint.com/unix_command_course_for_beginners/index.asp" title="Unix Command Course for Beginners" class="" data-title="unix_command_course_for_beginners" >Unix Command Course for Beginners</a></h4>							
+							<p class="videos-details course-list-video">
+    35 Lectures 
+    <span><i class="fa fa-clock"></i> 2 hours </span>
+</p>							<p class="h25"><i class="fa fa-user"></i> <a href="https://www.tutorialspoint.com/profile/pradeep_d" >Pradeep D</a></p>
+<style>.h25{height:25px;overflow:hidden;}</style>						</div>
+						<div class="v-courses-price">
+							<div class="btn-width">   
+   <a href="https://www.tutorialspoint.com/unix_command_course_for_beginners/index.asp" target="_blank">
+   <div class="btn-success rounded">More Detail</div>
+   </a>
+</div>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				
+																<div class="mui-col-xl-4 mui-col-md-4 mui-col-sm-12 npr">
+					<input type="hidden" class="course_id" value="4199" />
+					<div class="course-card video-card flexi rounded">
+						<div class="course-card-thumbnail">
+							<a href="https://www.tutorialspoint.com/linux_unix_for_devops_and_developers/index.asp" class="" data-title="linux_unix_for_devops_and_developers" > 
+    <img class="rounded-img" src="https://d3mxt5v3yxgcsr.cloudfront.net/courses/4199/course_4199_image.jpg" alt="Linux/Unix For DevOps and Developers" title="Linux/Unix For DevOps and Developers" />
+            <span class="play-button-trigger"></span>
+    </a>						</div>
+						<div class="ribbon-V"><span>Video</span></div>						<div class="course-card-body">
+							<h4 class="h48"><a href="https://www.tutorialspoint.com/linux_unix_for_devops_and_developers/index.asp" title="Linux/Unix For DevOps and Developers" class="" data-title="linux_unix_for_devops_and_developers" >Linux/Unix For DevOps and Developers</a></h4>							
+							<p class="videos-details course-list-video">
+    41 Lectures 
+    <span><i class="fa fa-clock"></i> 2.5 hours </span>
+</p>							<p class="h25"><i class="fa fa-user"></i> <a href="https://www.tutorialspoint.com/profile/musab_zayadneh" >Musab Zayadneh</a></p>
+<style>.h25{height:25px;overflow:hidden;}</style>						</div>
+						<div class="v-courses-price">
+							<div class="btn-width">   
+   <a href="https://www.tutorialspoint.com/linux_unix_for_devops_and_developers/index.asp" target="_blank">
+   <div class="btn-success rounded">More Detail</div>
+   </a>
+</div>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				
+																<div class="mui-col-xl-4 mui-col-md-4 mui-col-sm-12 npr">
+					<input type="hidden" class="course_id" value="4685" />
+					<div class="course-card video-card flexi rounded">
+						<div class="course-card-thumbnail">
+							<a href="https://www.tutorialspoint.com/linux_unix_os_command_line_and_shell_scripting_introduction/index.asp" class="" data-title="linux_unix_os_command_line_and_shell_scripting_introduction" > 
+    <img class="rounded-img" src="https://d3mxt5v3yxgcsr.cloudfront.net/courses/4685/course_4685_image.png" alt="Linux, Unix OS Command Line and Shell Scripting Introduction" title="Linux, Unix OS Command Line and Shell Scripting Introduction" />
+            <span class="play-button-trigger"></span>
+    </a>						</div>
+						<div class="ribbon-V"><span>Video</span></div>						<div class="course-card-body">
+							<h4 class="h48"><a href="https://www.tutorialspoint.com/linux_unix_os_command_line_and_shell_scripting_introduction/index.asp" title="Linux, Unix OS Command Line and Shell Scripting Introduction" class="" data-title="linux_unix_os_command_line_and_shell_scripting_introduction" >Linux, Unix OS Command Line and Shell Scripting Introduction</a></h4>							
+							<p class="videos-details course-list-video">
+    46 Lectures 
+    <span><i class="fa fa-clock"></i> 4 hours </span>
+</p>							<p class="h25"><i class="fa fa-user"></i> <a href="https://www.tutorialspoint.com/profile/guharajanm" >GUHARAJANM</a></p>
+<style>.h25{height:25px;overflow:hidden;}</style>						</div>
+						<div class="v-courses-price">
+							<div class="btn-width">   
+   <a href="https://www.tutorialspoint.com/linux_unix_os_command_line_and_shell_scripting_introduction/index.asp" target="_blank">
+   <div class="btn-success rounded">More Detail</div>
+   </a>
+</div>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				
+																<div class="mui-col-xl-4 mui-col-md-4 mui-col-sm-12 npr">
+					<input type="hidden" class="course_id" value="6174" />
+					<div class="course-card video-card flexi rounded">
+						<div class="course-card-thumbnail">
+							<a href="https://www.tutorialspoint.com/unix-and-linux-training/index.asp" class="" data-title="unix-and-linux-training" > 
+    <img class="rounded-img" src="https://d3mxt5v3yxgcsr.cloudfront.net/courses/6174/course_6174_image.jpg" alt="Unix and Linux Training" title="Unix and Linux Training" />
+            <span class="play-button-trigger"></span>
+    </a>						</div>
+						<div class="ribbon-V"><span>Video</span></div>						<div class="course-card-body">
+							<h4 class="h48"><a href="https://www.tutorialspoint.com/unix-and-linux-training/index.asp" title="Unix and Linux Training" class="" data-title="unix-and-linux-training" >Unix and Linux Training</a></h4>							
+							<p class="videos-details course-list-video">
+    6 Lectures 
+    <span><i class="fa fa-clock"></i> 4 hours </span>
+</p>							<p class="h25"><i class="fa fa-user"></i> <a href="https://www.tutorialspoint.com/profile/uplatz-163782114078" >Uplatz</a></p>
+<style>.h25{height:25px;overflow:hidden;}</style>						</div>
+						<div class="v-courses-price">
+							<div class="btn-width">   
+   <a href="https://www.tutorialspoint.com/unix-and-linux-training/index.asp" target="_blank">
+   <div class="btn-success rounded">More Detail</div>
+   </a>
+</div>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				
+							</div>
+			
+
+			<div class="clear"></div>
+			
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<div class="clear"></div>
+<div class="mui-container-fluid button-borders show" id="bottom_navigation">
+<div class="pre-btn">
+<a href="/unix_sockets/index.htm"><i class="fal fa-chevron-circle-left"></i> Previous Page</a>
+<a class="hide-on-mobile" href="javascript:printPage();"><i class="fa fa-print"></i> Print Page</a>
+</div>
+<div class="nxt-btn">
+<a href="/unix_sockets/network_addresses.htm">Next Page <i class="fal fa-chevron-circle-right"></i>&nbsp;</a>
+</div>
+</div>
+<div class="space-bottom" style="margin-bottom:20px;"></div>
+<div class="google-bottom-ads" id="google-bottom-ads">
+<div>Advertisements</div>
+<div>
+<div id="adp_bottom_ads"></div>
+<script>
+var adPos = document.getElementById('adp_bottom_ads');
+var mobile_ad_id = "a8a632a6-046e-4f5c-b25f-8bc82ac89fb2";
+var desktop_ad_id = "e7ddd6f7-1ab0-494a-bade-887daa4373a0";
+desktop_ad_id = "4951d1d6-24d4-4a31-afb7-2c22c489eae1";
+var adpushup = adpushup || {};
+adpushup.que = adpushup.que || [];
+adpushup.que.push(function() {
+var ad_id = window.innerWidth <= 768 ? mobile_ad_id : desktop_ad_id;
+adPos.innerHTML = '<div id="' + ad_id + '" class="_ap_apex_ad"></div>';
+adpushup.triggerAd(ad_id);
+});
+</script>
+</div>
+<div class="space-bottom"></div>
+</div>
+</div>
+<!-- Tutorial Content Ends Here -->
+<!-- Right Column Starts Here -->
+<div class="mui-col-md-2 google-right-ads" id="chapter-menu" style="display: none;">
+<!--
+<input type="hidden" id="vu" name="vu" value=""/>
+-->
+<div class="space-top"></div>
+<div class="mui-panel">
+<ul class="paid-menu" id="div-right-menu">
+<li><a class="hide-on-mobile" href="javascript:printPage();" title="Print this page"><i class="fa fa-print"></i> Print</a></li>
+<li><a href="javascript:void(0)" class="add_notes" title="Add Custom Notes" onclick="add_notes();"><i class="fa fa-edit"></i>&nbsp;Add Notes</a></li>
+<li><a href="javascript:void(0)" class="clsPage text-bookmark" id="text-bookmark" title="Add Bookmark" onclick="text_bookmark()"><i class="fal fa-bookmark"></i>&nbsp;Bookmark this page </a></li>
+<li><a href="javascript:void(0);" id="report_error_popup" onclick="report_error_popup();" title="Report Error"><i class="fal fa-bell"></i>&nbsp;Report Error</a></li>
+<li><a href="javascript:void(0);" id="suggestion_popup" title="Give Suggestions" onclick="suggestion_popup();"><i class="fal fa-badge-check"></i>&nbsp;Suggestions</a></li>
+</ul>
+<br>
+<div class="error_msg display_msg" style="color:red;text-align:left;" ></div>
+<div class="success_msg display_msg" style="color:green;text-align:left;" ></div>
+<div class="profile-my-notes" id="text_notes_div" style="display:none;">
+<textarea rows="10" class="text_notes" id="text_notes" name="text_notes" placeholder="Enter your custom notes..."></textarea>
+<br>
+<a href="javascript:void(0);" id="submit_text_notes" class="butn-save" onclick="submit_text_notes();"> Save</a>
+<a href="javascript:void(0);" class="pop-no butn-cancel" onclick="notesClose();"> Close</a>
+<p class="notes_msg"  ></p>
+</div>
+<div class="bottom-menu">
+<div class="tp-btn" style="width: auto;"><i class="fal fa-box-up"></i> <a href="https://www.tutorialspoint.com/market/student/dashboard.jsp">Dashboard</a></div>
+<div class="tp-btn" style="width: auto;" id="btnLogout"><i class="fal fa-sign-out-alt"></i><a href="javascript:void(0)">Logout</a></div>
+</div>
+</div>
+</div>
+<div class="mui-col-md-2 google-right-ads" id="google-right-ads">
+<div class="space-top"></div>
+<div class="google-right-ad" style="margin: 0px auto !important;margin-top:5px;min-height:250px!important">
+<div id="f0f6cff6-393d-4170-b63a-d9ff06ca9f25" class="_ap_apex_ad">
+<script>
+if( window.innerWidth > 768 ){
+   var adpushup = adpushup || {};
+   adpushup.que = adpushup.que || [];
+   adpushup.que.push(function() {
+   adpushup.triggerAd("f0f6cff6-393d-4170-b63a-d9ff06ca9f25");
+   });
+}
+</script>
+</div>
+</div>
+<div class="google-right-ad" style="margin-top:16px;min-height:250px!important">
+<div id="5c0affd5-724a-475c-bfcd-cecbc7660c36" class="_ap_apex_ad">
+<script>
+if( window.innerWidth > 768 ){
+   var adpushup = adpushup || {};
+   adpushup.que = adpushup.que || [];
+   adpushup.que.push(function() {
+   adpushup.triggerAd("5c0affd5-724a-475c-bfcd-cecbc7660c36");
+   });
+}
+</script>
+</div>
+</div>
+<div class="google-right-ad" style="margin-top:16px;margin-bottom:15px;min-height:600px!important">
+<div id="8f8814c2-d64c-4d26-9cb9-543653c0b48f" class="_ap_apex_ad">
+<script>
+if( window.innerWidth > 768 ){
+   var adpushup = adpushup || {};
+   adpushup.que = adpushup.que || [];
+   adpushup.que.push(function() {
+   adpushup.triggerAd("8f8814c2-d64c-4d26-9cb9-543653c0b48f");
+   });
+}
+</script>
+</div>
+</div>
+<div class="space-bottom" style="margin-bottom:15px;"></div>
+</div>
+<!-- Right Column Ends Here -->
+</div>
+</div>
+<div class="clear"></div>
+<footer id="footer">
+<div class="mui--text-center">
+<div class="mui--text-caption mui--text-light">
+<a href="/index.htm" class="logo"><img class="img-responsive" src="/images/logo-black.png" alt="Tutorials Point" title="Tutorials Point"></a>
+</div>
+<ul class="mui-list--inline mui--text-body2 mui--text-light">
+<li><a href="/about/index.htm"><i class="fal fa-globe"></i> About us</a></li>
+<li><a href="/about/return_refund_policy.htm"> <i class="fal fa-asterisk"></i> Refund Policy</a></li>
+<li><a href="/about/about_terms_of_use.htm"><i class="fal fa-asterisk"></i> Terms of use</a></li>
+<li><a href="/about/about_privacy.htm"> <i class="fal fa-shield-check"></i> Privacy Policy</a></li>
+<li><a href="/about/faq.htm"><i class="fal fa-question-circle"></i> FAQ's</a></li>
+<li><a href="/about/contact_us.htm"><i class="fal fa-map-marker-alt"></i> Contact</a></li>
+</ul>
+<div class="mui--text-caption mui--text-light bottom-copyright-text">&copy; Copyright 2021. All Rights Reserved.</div>
+</div>
+<div id="privacy-banner">
+  <div>
+    <p>
+      We make use of cookies to improve our user experience. By using this website, you agree with our Cookies Policy.
+      <a id="banner-accept" href="javascript:void(0)">Agree</a>
+      <a id="banner-learn" href="/about/about_cookies.htm" target="_blank">Learn more</a>
+    </p>
+  </div>
+</div>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-232293-6"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-232293-6');
+</script>
+<script src="/themes/js/jquery.colorbox-min.js"></script>
+<script>
+   var tryit = new $.TryIt('/unix_sockets/try_unix_sockets.php');
+   tryit.compile();
+</script><script src="https://www.tutorialspoint.com/themes/js/text_menu.js"></script>
+<script>
+$(document).ready(function (){
+    var cval = readCookie('subscription_purchased');
+    if(cval == '1'){
+          // logged in and purchased subscription.
+          $('#google-right-ads').remove();
+          $('#adp1').remove();
+          $('#adp2').remove();
+          $('#stickyparent').remove();
+          $('#google-top-ads').remove();
+          $('#adp_top_ads').remove();
+          $('#google-bottom-ads').remove();
+          $('.tutorial-content hr').remove();
+          $('.login').remove();
+          $('#chapter-menu').show();
+          $('.content h1').css("border-bottom", "none");
+          $('.google-right-ads').css("padding-right", "0px");
+          $('.tutorial-content').css("border-radius", "10px");
+          $('#chapter-menu .mui-panel').css("border-radius", "10px");
+     }
+     $(document).on("click", "#btnLogout", function(){
+       $.ajax({
+           type: 'GET',
+           dataType: 'JSON',
+           cache: false,
+           url: "https://www.tutorialspoint.com/market/logout.jsp",
+           complete: function (xhr, statusText) {
+               if(xhr.status == 200) {
+                   window.location.href = 'https://www.tutorialspoint.com/index.htm'
+               } else {
+                   console.log("something went wrong");
+               }
+           }
+       });
+    });
+});
+</script>
+</footer>
+</body>
+</html>
